@@ -1,0 +1,29 @@
+{
+  "name": "dmrcontacttools",
+  "version": "1.0.0",
+  "description": "Tools for creating DMR contact lists",
+  "main": "src/index.js",
+  "scripts": {
+    "doit": "node src/gen-contact-list.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/k0emt/DmrContactTools.git"
+  },
+  "keywords": [
+    "DMR",
+    "Amateur",
+    "Radio"
+  ],
+  "author": "k0emt",
+  "license": "SEE LICENSE IN LICENSE",
+  "bugs": {
+    "url": "https://github.com/k0emt/DmrContactTools/issues"
+  },
+  "homepage": "https://github.com/k0emt/DmrContactTools#readme",
+  "engines": {
+    "node": ">=16.2.0",
+    "npm": ">=7.0.0"
+  }
+}

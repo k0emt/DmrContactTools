@@ -42,7 +42,7 @@ Generate a list of operators from a SOTA log.
 
 ## Obtain full DMR Contact List
 
-Download full DMR contact lists from <http://www.dmrcontacts.com> 
+Download full DMR contact lists from <http://www.dmrcontacts.com>
 
 ```sh
 curl http://www.dmrcontacts.com/d868uv-d878uv.csv > d868uv-d878uv.csv
@@ -57,7 +57,7 @@ Save the DMR contact list in a file with a default name: `dmr-contact-list.csv`
 Run the command.
 
 ```sh
-command_name_tbd call-file-name.txt
+npm run doit
 ```
 
 Default output is sent to generated-contact-list-YYYYMMDDTHHmmss.csv
@@ -82,4 +82,3 @@ Override the default contact file name with -c filename, the input filename with
 ```sh
 npm install
 ```
-
