@@ -10,7 +10,7 @@ Create or acquire a list of call signs for operators that you want in your conta
 
 ### Create your own list
 
-Create your own list of your on air buddies or frequent contacts.  Create a file with one callsign per row.
+Make your own list of your on air buddies, frequent contacts, club or organization members, etc.  Create a file with one callsign per row.
 
 ```txt
 k0emt
