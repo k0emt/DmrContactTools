@@ -40,6 +40,15 @@ Generate a list of operators from an ADIF log.
 
 Generate a list of operators from a SOTA log.
 
+## Obtain full DMR Contact List
+
+Download full DMR contact lists from <http://www.dmrcontacts.com> 
+
+```sh
+curl http://www.dmrcontacts.com/d868uv-d878uv.csv > d868uv-d878uv.csv
+curl http://www.dmrcontacts.com/d868uv-d878uv-v2.csv > d868uv-d878uv-v2.csv
+```
+
 ## Generate Contact Lists
 
 Use your list of call signs to create a custom DMR contact list
