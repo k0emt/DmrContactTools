@@ -46,7 +46,6 @@ Download full DMR contact lists from <http://www.dmrcontacts.com>
 
 ```sh
 curl http://www.dmrcontacts.com/d868uv-d878uv.csv > d868uv-d878uv.csv
-curl http://www.dmrcontacts.com/d868uv-d878uv-v2.csv > d868uv-d878uv-v2.csv
 ```
 
 ## Generate Contact Lists

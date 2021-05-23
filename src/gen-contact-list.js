@@ -1,13 +1,18 @@
 const readline = require('readline')
 const fs = require('fs')
 
-const defaultOperatorListFileName = 'ops.txt'
-const defaultContactFileName = 'test-contact-list.csv'
+const DEFAULT_OPERATOR_LIST_FILENAME = 'ops.txt'
+const DEFAULT_CONTACT_DATABASE_FILENAME = 'test-contact-list.csv'
+const DEFAULT_OUTPUT_CONTACT_FILENAME = 'my-custom-contacts.csv'
 
-// read in ops.txt
-function loadOps(operatorListFileName, nextStage) {
+function loadOps(
+    operatorListFilename,
+    contactDatabaseFilename,
+    outputContactFilename,
+    nextStage
+) {
     const readInterface = readline.createInterface({
-        input: fs.createReadStream(operatorListFileName),
+        input: fs.createReadStream(operatorListFilename),
         // output: process.stdout,
         console: false
     })
@@ -20,21 +25,31 @@ function loadOps(operatorListFileName, nextStage) {
     })
 
     readInterface.on('close', function () {
-        nextStage(operatorList)
+        nextStage(operatorList, contactDatabaseFilename, outputContactFilename)
     })
 }
 
-function postLoadLoop(opsList) {
+function determineCallsignField(headerRow) {
+    return 2;
+}
+
+function postLoadLoop(opsList, contactDatabaseFileName, outputFileName) {
     let generatedContactList = []
+    let isHeader = true;
     
     console.log(opsList)
 
     // given contact list CSV
+
     // read first line of file
     // determine what field in CSV has the call sign
+    if (isHeader) {
+        isHeader = false
+        let callsignColumn = determineCallsignField('');
+    }
+    
     // read through every line of the CSV
     // determine the  callsign in the row
-
     // if the callsign is in the keyset of the map.has, insert it
     // placeholder example
     if (opsList.includes('K0EMT')) {
@@ -47,7 +62,12 @@ function postLoadLoop(opsList) {
 }
 
 const main = () => {
-    loadOps(defaultOperatorListFileName, postLoadLoop)
+    loadOps(
+        DEFAULT_OPERATOR_LIST_FILENAME,
+        DEFAULT_CONTACT_DATABASE_FILENAME,
+        DEFAULT_OUTPUT_CONTACT_FILENAME,
+        postLoadLoop
+    )
 }
 
 main()
