@@ -2,7 +2,7 @@ const readline = require('readline')
 const fs = require('fs')
 
 const DEFAULT_OPERATOR_LIST_FILENAME = 'ops.txt'
-const DEFAULT_CONTACT_DATABASE_FILENAME = 'test-contact-list.csv'
+const DEFAULT_CONTACT_DATABASE_FILENAME = 'test-contact-list.csv' // 'd868uv-d878uv.csv'
 const DEFAULT_OUTPUT_CONTACT_FILENAME = 'my-custom-contacts.csv'
 
 let operatorListFilename = DEFAULT_OPERATOR_LIST_FILENAME
@@ -29,18 +29,39 @@ function loadOps(nextStage) {
 }
 
 function determineCallsignField(headerRow) {
-    // TODO determine callsign field
     console.log(`Determine callsign field from:\n${headerRow}`)
 
-    let columnNumber = 2
+    let columnNumber = headerRow.split(',').indexOf('"Callsign"')
 
-    console.log(`Using column ${columnNumber} as callsign field.`)
+    console.log(
+        `Using column ${columnNumber} (0 based counting) as callsign field.`
+    )
     return columnNumber
 }
 
 function contactWriter(generatedContactList) {
-    // TODO: write the generated contact list to the output file
-    console.log(generatedContactList)
+    console.log(`Writing to file: ${outputContactFilename}`)
+
+    const writeStream = fs.createWriteStream(outputContactFilename)
+    const pathName = writeStream.path
+
+    // write each value of the array on the file breaking line
+    generatedContactList.forEach((contact) => writeStream.write(`${contact}\n`))
+
+    // the finish event is emitted when all data has been flushed from the stream
+    writeStream.on('finish', () => {
+        console.log(`Wrote all the contacts data to file ${pathName}`)
+    })
+
+    // handle the errors on the write process
+    writeStream.on('error', (err) => {
+        console.error(
+            `There is an error writing the file ${pathName} => ${err}`
+        )
+    })
+
+    // close the stream
+    writeStream.end()
 }
 
 function postLoadLoop(opsList, writer) {
@@ -70,12 +91,12 @@ function postLoadLoop(opsList, writer) {
         // read through every line of the CSV
         // determine the  callsign in the row
         callsign = line.split(',')[callsignColumn].replace(/\"/g, '')
-        console.log(`found: ${callsign}`)
+        // console.log(`found: ${callsign}`)
+        // TODO progress spinner
 
         // if the callsign is in the keyset of the map.has, insert it
-        // placeholder example
         if (opsList.includes(callsign) == true) {
-            console.log(`Adding ${callsign} to exported contacts`)
+            console.log(`Found a contact record for ${callsign}`) // TODO fancy this up
             generatedContactList.push(line)
         }
     })
