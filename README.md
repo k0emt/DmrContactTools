@@ -8,6 +8,8 @@ Also, it takes time to upload the full list to a radio.
 
 Create or acquire a list of call signs for operators that you want in your contact list (if they have a DMR id).
 
+The default operator list input file is `ops.txt`
+
 ### Create your own list
 
 Make your own list of your on air buddies, frequent contacts, club or organization members, etc.  Create a file with one callsign per row.
@@ -50,16 +52,17 @@ curl http://www.dmrcontacts.com/d868uv-d878uv.csv > d868uv-d878uv.csv
 
 ## Generate Contact Lists
 
-Use your list of call signs to create a custom DMR contact list
-Save the DMR contact list in a file with a default name: `dmr-contact-list.csv`
+Use your list of call signs to create a custom DMR contact list.
 
-Run the command.
+The default DMR contact list file name is as above `d868uv-d878uv.csv`
+
+Run the with the default settings.
 
 ```sh
 npm run doit
 ```
 
-Default output is sent to generated-contact-list-YYYYMMDDTHHmmss.csv
+Default output is sent to generated-contact-list-YYYY-MM-DDTHH:mm:ss.sssZ.csv
 
 Override the default contact file name with -c filename, the input filename with -f filename, and the output filename with -o filename
 
@@ -72,7 +75,7 @@ Override the default contact file name with -c filename, the input filename with
 
 - node.js v16
 - chalk
-- inquirer
+- inquirer ?
 - cli-ux ?
 - ???
 

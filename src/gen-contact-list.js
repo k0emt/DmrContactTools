@@ -2,14 +2,16 @@ const readline = require('readline')
 const fs = require('fs')
 
 const DEFAULT_OPERATOR_LIST_FILENAME = 'ops.txt'
-const DEFAULT_CONTACT_DATABASE_FILENAME = 'test-contact-list.csv' // 'd868uv-d878uv.csv'
-const DEFAULT_OUTPUT_CONTACT_FILENAME = 'my-custom-contacts.csv'
+const DEFAULT_CONTACT_DATABASE_FILENAME = 'd868uv-d878uv.csv'
+const DEFAULT_OUTPUT_CONTACT_FILENAME = `generated-contact-list-${new Date().toISOString()}.csv`
 
 let operatorListFilename = DEFAULT_OPERATOR_LIST_FILENAME
 let contactDatabaseFilename = DEFAULT_CONTACT_DATABASE_FILENAME
 let outputContactFilename = DEFAULT_OUTPUT_CONTACT_FILENAME
 
 function loadOps(nextStage) {
+    console.log(`Will lock for operators listed in: ${operatorListFilename}`)
+
     const readInterface = readline.createInterface({
         input: fs.createReadStream(operatorListFilename),
         // output: process.stdout,
@@ -24,6 +26,7 @@ function loadOps(nextStage) {
     })
 
     readInterface.on('close', function () {
+        console.log(operatorList)
         nextStage(operatorList, contactWriter)
     })
 }
@@ -50,7 +53,7 @@ function contactWriter(generatedContactList) {
 
     // the finish event is emitted when all data has been flushed from the stream
     writeStream.on('finish', () => {
-        console.log(`Wrote all the contacts data to file ${pathName}`)
+        console.log(`All contacts data written to file: ${pathName}`)
     })
 
     // handle the errors on the write process
@@ -70,7 +73,7 @@ function postLoadLoop(opsList, writer) {
     let callsign = ''
     let callsignColumn = null
 
-    console.log(opsList)
+    console.log(`Using contact database: ${contactDatabaseFilename}`)
 
     // given contact list CSV
     const readInterface = readline.createInterface({
