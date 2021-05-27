@@ -30,38 +30,59 @@ function loadOps(
 }
 
 function determineCallsignField(headerRow) {
-    return 2;
+    // TODO determine callsign field
+    console.log(`Determine callsign field from:\n${headerRow}`)
+    let columnNumber =2
+    console.log(`Using column ${columnNumber} as callsign field.`)
+    return columnNumber
 }
 
 function postLoadLoop(opsList, contactDatabaseFileName, outputFileName) {
     let generatedContactList = []
-    let isHeader = true;
-    
+    let isHeader = true
+    let callsign = ''
+    let callsignColumn = null
+
     console.log(opsList)
 
     // given contact list CSV
+    const readInterface = readline.createInterface({
+        input: fs.createReadStream(contactDatabaseFileName),
+        // output: process.stdout,
+        console: false
+    })
 
-    // read first line of file
-    // determine what field in CSV has the call sign
-    if (isHeader) {
-        isHeader = false
-        let callsignColumn = determineCallsignField('');
-    }
-    
-    // read through every line of the CSV
-    // determine the  callsign in the row
-    // if the callsign is in the keyset of the map.has, insert it
-    // placeholder example
-    if (opsList.includes('K0EMT')) {
-        generatedContactList.push('example DMR contact record for k0emt')
-    }
+    readInterface.on('line', function (line) {
+        // read first line of file
+        // determine what field in CSV has the call sign
+        if (isHeader) {
+            isHeader = false
+            callsignColumn = determineCallsignField(line)
+            generatedContactList.push(line)
+        }
 
-    // pass the generatedContactList list out to something that will write it out
-    // should also capture and write out the first line header
-    console.log(generatedContactList)
+        // read through every line of the CSV
+        // determine the  callsign in the row
+        callsign = line.split(',')[callsignColumn].replace(/\"/g,'')
+        console.log(`found: ${callsign}`)
+
+        // if the callsign is in the keyset of the map.has, insert it
+        // placeholder example
+        if (opsList.includes(callsign) == true) {
+            console.log(`Adding ${callsign} to exported contacts`)
+            generatedContactList.push(line)
+        }
+    })
+
+    readInterface.on('close', function () {
+        // return the generatedContactList list out to something that will write it out
+        console.log(generatedContactList)
+    })
 }
 
 const main = () => {
+    // TODO: arguments processing for filenames
+
     loadOps(
         DEFAULT_OPERATOR_LIST_FILENAME,
         DEFAULT_CONTACT_DATABASE_FILENAME,
