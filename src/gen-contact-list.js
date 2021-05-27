@@ -5,12 +5,11 @@ const DEFAULT_OPERATOR_LIST_FILENAME = 'ops.txt'
 const DEFAULT_CONTACT_DATABASE_FILENAME = 'test-contact-list.csv'
 const DEFAULT_OUTPUT_CONTACT_FILENAME = 'my-custom-contacts.csv'
 
-function loadOps(
-    operatorListFilename,
-    contactDatabaseFilename,
-    outputContactFilename,
-    nextStage
-) {
+let operatorListFilename = DEFAULT_OPERATOR_LIST_FILENAME
+let contactDatabaseFilename = DEFAULT_CONTACT_DATABASE_FILENAME
+let outputContactFilename = DEFAULT_OUTPUT_CONTACT_FILENAME
+
+function loadOps(nextStage) {
     const readInterface = readline.createInterface({
         input: fs.createReadStream(operatorListFilename),
         // output: process.stdout,
@@ -25,19 +24,26 @@ function loadOps(
     })
 
     readInterface.on('close', function () {
-        nextStage(operatorList, contactDatabaseFilename, outputContactFilename)
+        nextStage(operatorList, contactWriter)
     })
 }
 
 function determineCallsignField(headerRow) {
     // TODO determine callsign field
     console.log(`Determine callsign field from:\n${headerRow}`)
-    let columnNumber =2
+
+    let columnNumber = 2
+
     console.log(`Using column ${columnNumber} as callsign field.`)
     return columnNumber
 }
 
-function postLoadLoop(opsList, contactDatabaseFileName, outputFileName) {
+function contactWriter(generatedContactList) {
+    // TODO: write the generated contact list to the output file
+    console.log(generatedContactList)
+}
+
+function postLoadLoop(opsList, writer) {
     let generatedContactList = []
     let isHeader = true
     let callsign = ''
@@ -47,7 +53,7 @@ function postLoadLoop(opsList, contactDatabaseFileName, outputFileName) {
 
     // given contact list CSV
     const readInterface = readline.createInterface({
-        input: fs.createReadStream(contactDatabaseFileName),
+        input: fs.createReadStream(contactDatabaseFilename),
         // output: process.stdout,
         console: false
     })
@@ -63,7 +69,7 @@ function postLoadLoop(opsList, contactDatabaseFileName, outputFileName) {
 
         // read through every line of the CSV
         // determine the  callsign in the row
-        callsign = line.split(',')[callsignColumn].replace(/\"/g,'')
+        callsign = line.split(',')[callsignColumn].replace(/\"/g, '')
         console.log(`found: ${callsign}`)
 
         // if the callsign is in the keyset of the map.has, insert it
@@ -75,20 +81,14 @@ function postLoadLoop(opsList, contactDatabaseFileName, outputFileName) {
     })
 
     readInterface.on('close', function () {
-        // return the generatedContactList list out to something that will write it out
-        console.log(generatedContactList)
+        writer(generatedContactList)
     })
 }
 
 const main = () => {
     // TODO: arguments processing for filenames
 
-    loadOps(
-        DEFAULT_OPERATOR_LIST_FILENAME,
-        DEFAULT_CONTACT_DATABASE_FILENAME,
-        DEFAULT_OUTPUT_CONTACT_FILENAME,
-        postLoadLoop
-    )
+    loadOps(postLoadLoop)
 }
 
 main()
