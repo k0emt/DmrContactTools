@@ -42,6 +42,16 @@ Generate a list of operators from an ADIF log.
 
 Generate a list of operators from a SOTA log.
 
+### The DMR Contact Database
+
+You can use command line tools like `grep` to find amateurs that match critieria.  For example, to identify amateur radio operators in Columbus, Indiana:
+
+```sh
+grep  Columbus d868uv-d878uv.csv | grep Indiana > Columbus.Indiana.ops.txt
+```
+
+Then it is a matter of extracting the call signs from the generated txt file.
+
 ## Obtain full DMR Contact List
 
 Download full DMR contact lists from <http://www.dmrcontacts.com>
