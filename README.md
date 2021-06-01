@@ -26,7 +26,7 @@ NK8O
 
 Tools for getting lists of call signs
 
-- 4SQRP
+- [4SQRP](op-list-providers/4SQRP/README.md)
 - POTA ops
 - SOTA ops
 - Flying Pigs QRP
@@ -78,8 +78,8 @@ Override the default contact file name with -c filename, the input filename with
 
 ## Utilities
 
-- Merge generated contact lists
-- Dedupe the merged list
+- Merge generated (source) contact lists
+- Dedupe the source list
 
 ## Tech stack
 
