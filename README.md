@@ -22,7 +22,7 @@ n0evh
 NK8O
 ```
 
-### Organization Operators
+### Organization Operators (In progress)
 
 Tools for getting lists of call signs
 
@@ -34,17 +34,17 @@ Tools for getting lists of call signs
 - NAQCC
 - SKCC
 
-### ADIF log scanner
+### ADIF log scanner (TBD)
 
 Generate a list of operators from an ADIF log.
 
-### SOTA log scanner
+### SOTA log scanner (TBD)
 
 Generate a list of operators from a SOTA log.
 
 ### The DMR Contact Database
 
-You can use command line tools like `grep` to find amateurs that match critieria.  For example, to identify amateur radio operators in Columbus, Indiana:
+Once you have obtained a full DMR contact list, you can use command line tools like `grep` to find amateurs that match critieria.  For example, to identify amateur radio operators in Columbus, Indiana:
 
 ```sh
 grep  Columbus d868uv-d878uv.csv | grep Indiana > Columbus.Indiana.ops.txt
