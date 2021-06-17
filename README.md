@@ -47,10 +47,14 @@ Generate a list of operators from a SOTA log.
 Once you have obtained a full DMR contact list, you can use command line tools like `grep` to find amateurs that match critieria.  For example, to identify amateur radio operators in Columbus, Indiana:
 
 ```sh
-grep  Columbus d868uv-d878uv.csv | grep Indiana > Columbus.Indiana.ops.txt
+grep  Columbus d868uv-d878uv.csv | grep Indiana > raw_Columbus.Indiana.ops.txt
 ```
 
 Then it is a matter of extracting the call signs from the generated txt file.
+
+```sh
+cut -d',' -f 3 raw_Columbus.Indiana.ops.txt | sed s/\"//g > Columbus.Indiana.ops.txt
+```
 
 ## Obtain full DMR Contact List
 
@@ -66,7 +70,7 @@ Use your list of call signs to create a custom DMR contact list.
 
 The default DMR contact list file name is as above `d868uv-d878uv.csv`
 
-Run the with the default settings.
+Run with the default settings:
 
 ```sh
 npm run doit
@@ -78,8 +82,23 @@ Override the default contact file name with -c filename, the input filename with
 
 ## Utilities
 
-- Merge generated (source) contact lists
-- Dedupe the source list
+### Merging operator lists
+
+You can use file concatenation to make a file that is the aggregation of multiple operator lists.
+
+For example, if you have three operator lists, one.txt, two.txt, and three.txt
+
+```sh
+cat one.txt > combined_raw.txt
+cat two.txt >> combined_raw.txt
+cat three.txt >> combined_raw.txt
+```
+
+Now that you have a combined file, you need to deduplicate the operators in the list.
+
+```sh
+cat combined_raw.txt | tr [a-z] [A-z] | sort | uniq > combined.txt
+```
 
 ## Tech stack
 
