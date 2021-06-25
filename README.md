@@ -4,6 +4,17 @@ Given that DMR devices have a limited memory, the contact list of all DMR contac
 
 Also, it takes time to upload the full list to a radio.
 
+## Tech stack
+
+- node.js v16
+- *nix shell commands
+
+## Installing the Tools
+
+```sh
+npm install
+```
+
 ## Source Call lists
 
 Create or acquire a list of call signs for operators that you want in your contact list (if they have a DMR id).
@@ -68,7 +79,8 @@ curl http://www.dmrcontacts.com/d868uv-d878uv.csv > d868uv-d878uv.csv
 
 Use your list of call signs to create a custom DMR contact list.
 
-The default DMR contact list file name is as above `d868uv-d878uv.csv`
+The default input or ops file name is: `ops.txt`
+The default DMR contact list file name is as above: `d868uv-d878uv.csv`
 
 Run with the default settings:
 
@@ -78,7 +90,7 @@ npm run doit
 
 Default output is sent to generated-contact-list-YYYY-MM-DDTHH:mm:ss.sssZ.csv
 
-Override the default contact file name with -c filename, the input filename with -f filename, and the output filename with -o filename
+TODO: Override the default contact file name with -c filename, the input filename with -f filename, and the output filename with -o filename
 
 ## Utilities
 
@@ -98,18 +110,4 @@ Now that you have a combined file, you need to deduplicate the operators in the 
 
 ```sh
 cat combined_raw.txt | tr [a-z] [A-z] | sort | uniq > combined.txt
-```
-
-## Tech stack
-
-- node.js v16
-- chalk
-- inquirer ?
-- cli-ux ?
-- ???
-
-## Installing the Tools
-
-```sh
-npm install
 ```
