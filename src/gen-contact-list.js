@@ -10,7 +10,7 @@ let contactDatabaseFilename = DEFAULT_CONTACT_DATABASE_FILENAME
 let outputContactFilename = DEFAULT_OUTPUT_CONTACT_FILENAME
 
 function loadOps(nextStage) {
-    console.log(`Will lock for operators listed in: ${operatorListFilename}`)
+    console.log(`Will look for operators listed in: ${operatorListFilename}`)
 
     const readInterface = readline.createInterface({
         input: fs.createReadStream(operatorListFilename),
