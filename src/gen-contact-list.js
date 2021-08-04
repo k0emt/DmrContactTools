@@ -18,7 +18,7 @@ function loadOps(nextStage) {
         console: false
     })
 
-    // store list of call signs in map, with the upper cased call sign as the key to a default ''
+    // store list of call signs, upper cased
     let operatorList = []
 
     readInterface.on('line', function (line) {

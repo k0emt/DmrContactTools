@@ -5,6 +5,7 @@
   "main": "src/index.js",
   "scripts": {
     "doit": "node src/gen-contact-list.js",
+    "adif-demo": "node src/adif-to-ops.js ../op-list-providers/ADIF/test-file.adif",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
