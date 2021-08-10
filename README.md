@@ -89,6 +89,14 @@ Default output is sent to generated-contact-list-YYYY-MM-DDTHH:mm:ss.sssZ.csv
 
 TODO: Override the default contact file name with -c filename, the input filename with -f filename, and the output filename with -o filename
 
+### GD77 Contact List
+
+As above, but to generate a file that can be used by the Radiooditty GD77 contact utility.
+
+```sh
+npm run gd77
+```
+
 ## Utilities
 
 ### Merging operator lists
@@ -103,7 +111,7 @@ cat two.txt >> combined_raw.txt
 cat three.txt >> combined_raw.txt
 ```
 
-Now that you have a combined file, you need to deduplicate the operators in the list.
+Now that you have a combined file, you need to deduplicate the operators in the list.  The `bash` command below takes the raw file, translates it to all upper case, sorts it, makes sure every line is unique and finally outputs it to `combined.txt`.
 
 ```sh
 cat combined_raw.txt | tr [a-z] [A-z] | sort | uniq > combined.txt
