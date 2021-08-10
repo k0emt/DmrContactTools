@@ -38,16 +38,13 @@ NK8O
 Tools for getting lists of call signs
 
 - [4SQRP](op-list-providers/4SQRP/README.md)
+- [From an ADIF log](op-list-providers/ADIF/README.md).
 - POTA ops
 - SOTA ops
 - Flying Pigs QRP
 - QRP ARCI
 - NAQCC
 - SKCC
-
-### ADIF log scanner (TBD)
-
-Generate a list of operators from an ADIF log.
 
 ### SOTA log scanner (TBD)
 
